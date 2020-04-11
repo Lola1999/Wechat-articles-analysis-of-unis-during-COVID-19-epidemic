@@ -1,0 +1,17 @@
+id
+my_id
+reply:{}
+is_top
+content
+like_id
+like_num
+logo_url
+nick_name
+content_id
+is_from_me
+create_time
+like_status
+is_from_friend
+
+
+    

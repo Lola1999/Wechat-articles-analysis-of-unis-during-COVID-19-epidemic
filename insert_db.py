@@ -2,10 +2,10 @@
 # coding = utf-8
 
 import pymysql
-import ast
 import re
 import time
 import emoji
+import content_analysis
 
 null = None
 
@@ -60,7 +60,7 @@ def connect_mysql(msg): # msg是元组，元素仍为元组，为每篇文章数
     # 使用cursor()方法创建一个游标对象
     cur = db.cursor()#【存疑】cursor是否为一次性声明？否
     sql = "insert IGNORE into articles values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" #用executemany()时全写%s即可
-    test_str = sql % msg[0]
+    #test_str = sql % msg[0]
     #print(test_str)
 
     try:
@@ -83,6 +83,6 @@ def filter_text(text): # 文本过滤，只保留中文、英文、数字、标�
         s = s.encode('utf-8')
     return results
 
-def insert_db(path): # 'D:/getcomment/articles.txt'
+def insert_db(path): # 本脚本main函数，'D:/getcomment/articles.txt'
     msg_tuple = get_datalist(path)
     connect_mysql(msg_tuple)

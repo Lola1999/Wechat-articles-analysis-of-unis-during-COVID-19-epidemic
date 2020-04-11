@@ -3,6 +3,11 @@
 
 import insert_db
 import emoji
+import content_analysis
 
-#path = 'D:/getcomment/0124-0314-CUC.txt'
-#insert_db.insert_db(path)
+if __name__ == "__main__":
+    path = "D:/getcomment/20200411.txt"
+    insert_db.insert_db(path)
+    print("【基础数据入库部分完成】")
+    content_analysis.article_analysis()
+    print("【文本分析部分完成】")
