@@ -47,7 +47,7 @@ def get_datalist(path): #读txt，将文章数据存入元组，便于mysql批�
     for i in msg_tuple: #验证数组中数据有效性，即msgid, __biz是否对应
         if i['msg_id'] == i['appmsgid_verify'] and i['__biz'] == i['__biz_verify']:
             count = count + 1
-            print("成功校验",count,"篇~\n")
+            print("成功校验",count,"篇~")
             msg = msg + (tuple(i.values()),)
         else:
             print('账号',i['__biz'],"，文章",i['msg_id'],"校验失败。文章标题为：",i['title'])
