@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+    var emphasisStyle = {
+        itemStyle: {
+            barBorderWidth: 1,
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            shadowColor: 'rgba(0,0,0,0.5)'
+        }
+    };
+
+option = {
+    title: {
+        text: '整体评论加权情感指数',
+        subtext: ''
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    brush: {
+            toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
+            xAxisIndex: 0
+        },
+    xAxis: {
+        type: 'value',
+        max:1.0,
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: ['中国传媒大学','中国人民大学','北京外国语大学','首都医科大学','清华大学']
+    },
+    series: [
+        {
+            name: '整体评论加权情感指数',
+            type: 'bar',
+            data:  [0.61,0.56,0.57,0.40,0.77],
+            emphasis: emphasisStyle,
+            markLine: {
+                symbol: ['none', 'none'],//去掉箭头
+                itemStyle: {
+                    normal: { lineStyle: { type: 'solid', color:'black'}
+                    ,label: { show: false, position:'left' } }
+                },
+                data: [
+                    {
+                        name: '中性',
+                        xAxis: 0.40
+                    },
+                    {
+                        name: '正面',
+                        xAxis: 0.60
+                    }
+                ]
+        }   
+        }
+        
+    ]
+};
+    
+    myChart.on('brushSelected', renderBrushed);
+    
+    function renderBrushed(params) {
+        var brushed = [];
+        var brushComponent = params.batch[0];
+    
+        for (var sIdx = 0; sIdx < brushComponent.selected.length; sIdx++) {
+            var rawIndices = brushComponent.selected[sIdx].dataIndex;
+            brushed.push('[Series ' + sIdx + '] ' + rawIndices.join(', '));
+        }
+    };
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>

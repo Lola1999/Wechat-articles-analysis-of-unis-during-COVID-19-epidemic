@@ -103,7 +103,7 @@ def insert_article_content_by_visiting_url(): # 从articles中取出文章url，
 
     db.close() #释放数据库资源
 
-def analysis_for_comments(): # 对文章评论的情感分析，计算加权平均数，并插入数据库，提前对空缺值进行处理；完成对文章评论的分词，用于制作高校评论热词
+def analysis_for_comments(): # 对文章评论的情感分析(数据库中对没有评论的文章设定其感情基调为0.5中立)，计算加权平均数，并插入数据库，提前对空缺值进行处理；完成对文章评论的分词，用于制作高校评论热词
     with open(r'./ForTHULAC/stopword.txt', 'r',encoding='utf-8') as f: #获取停用词列表
 	    my_data = f.readlines() 
 	    stopwords = ''.join([i.replace("\n"," ") for i in my_data]).split(' ') #得到停用词列表
@@ -122,8 +122,7 @@ def analysis_for_comments(): # 对文章评论的情感分析，计算加权平�
     for m in msg: #m为取出的这批文章中某一篇的详情，其中评论为json格式，依然是一个列表
         comment_wordcount = Counter() #存储每篇文章评论词频，用于高校评论热词分析
         comment_hotwords[m[2]] = Counter() #存储每个学校评论词频
-        if(m[0] == '[]'):
-            # print(m[1], 0) #m[1]: title，m[2]: __biz, m[3]:msg_id, m[4]:index_
+        if(m[0] == '[]'):# print(m[1], 0) #m[1]: title，m[2]: __biz, m[3]:msg_id, m[4]:index_
             weighted_avg = 0
         else:
             msg_comments_list = json.loads(m[0]) #将这个列表转换成python可以读取操作的格式，内部是一个列表，每个元素是字典
@@ -144,7 +143,7 @@ def analysis_for_comments(): # 对文章评论的情感分析，计算加权平�
                     print(m[1], msg_comments) #看看是哪条评论有问题
                     print("ex_results:",ex_results)
 
-                weighted_avg = round(p_sum / comments_like_sum, 3) #评论情感分析的加权平均数，数据库中对应comment_emotion一列，精确到小数点后3位
+                weighted_avg = round(p_sum / (len(msg_comments)+comments_like_sum), 3) #评论情感分析的加权平均数，数据库中对应comment_emotion一列，精确到小数点后3位
         comment_wordcount_json = json.dumps(comment_wordcount)
         msg_new_tuple_for_update += ((weighted_avg, comment_wordcount_json, m[2],m[3],int(m[4])),)
         # print(m[1],sorted(comment_wordcount.items(),key=lambda x:x[1],reverse=True)) #查看评论分词结果
@@ -319,8 +318,8 @@ def wc_from_word_count(wordcount, fp):# 根据词频字典生成词云图
         font_path="C:\\Windows\\Fonts\\simsun.ttc",
         # max_font_size=100,  # 字体最大值
         background_color="white",  # 设置背景为白色，默认为黑色
-        width = 1500,  # 设置图片的宽度
-        height= 960,  # 设置图片的高度
+        width = 1500,  # 设置图片的宽度1500
+        height= 960,  # 设置图片的高度960
         margin= 10  # 设置图片的边缘
     )
     wc.generate_from_frequencies(wordcount)  # 从字典生成词云
@@ -422,7 +421,6 @@ def hotwords_in_articles():#按照学校，选wordcount中的热词
         print("ex_results:",ex_results)
     db.close()
 
-
 def article_analysis(): #此脚本main函数
     #insert_article_content_by_visiting_url()
     #print("insert_article_content_by_visiting_url完成")
@@ -439,4 +437,10 @@ def article_analysis(): #此脚本main函数
 
 
 if __name__ == "__main__":
-    hotwords_in_articles()
+    sql = "select keywords from account_info where name = '中国传媒大学'"
+    msg,db,cur=mysql_execute(sql)
+    print(msg[0][0])
+    d={}
+    for i in msg[0][0]:
+        d[i]=1
+   # wc_from_word_count(d,"D:\Study\毕业设计\面向校园公众号推文的数据分析与可视化\数据库建立+数据获取\网站\酒店\html\img\cuc_keywords.png")

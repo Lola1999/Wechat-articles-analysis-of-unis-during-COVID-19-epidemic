@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+var xAxisData =[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360, 390, 420, 450, 480, 510, 540, 570, 600, 630, 660, 690, 720, 750, 780, 810, 840, 870, 900, 930, 960, 990, 1020, 1050, 1080, 1110, 1140, 1170, 1200, 1230, 1260, 1290, 1320, 1350, 1380, 1410, 1440, 1470, 1500, 1530, 1560, 1590, 1620, 1650, 1680, 1710, 1740, 1770, 1800, 1830];
+var data1 = [1, 0, 19, 0, 24, 0, 11, 0, 10, 0, 10, 0, 6, 0, 4, 0, 3, 0, 2, 0, 3, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var data2 = [0, 7, 0, 13, 0, 16, 0, 13, 0, 4, 0, 10, 0, 8, 0, 4, 0, 4, 0, 1, 0, 2, 0, 1, 0, 4, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var data3 = [1, 0, 5, 0, 3, 0, 4, 0, 1, 0, 0, 0, 1, 0, 0, 2, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
+var data4 = [27, 0, 13, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var data5 = [0, 1, 0, 2, 0, 7, 0, 5, 0, 14, 0, 16, 0, 10, 0, 18, 0, 16, 0, 8, 0, 12, 0, 8, 0, 7, 0, 6, 0, 1, 0, 5, 0, 7, 0, 5, 0, 6, 0, 4, 0, 4, 0, 5, 0, 7, 0, 2, 0, 2, 0, 1, 0, 4, 0, 5, 0, 3, 0, 2, 0, 3, 0, 2, 0, 2, 0, 1, 0, 2, 0, 1, 0, 3, 0, 0, 0, 2, 0, 1, 0, 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 3, 0, 0, 2, 0, 2, 0, 1, 0, 0, 1, 0, 0, 0, 0, 2, 0, 1, 0];
+
+
+var emphasisStyle = {
+    itemStyle: {
+        barBorderWidth: 1,
+        shadowBlur: 10,
+        shadowOffsetX: 0,
+        shadowOffsetY: 0,
+        shadowColor: 'rgba(0,0,0,0.5)'
+    }
+};
+
+option = {
+    backgroundColor: '#eee',
+    legend: {
+        data: ['中国传媒大学','中国人民大学','北京外国语大学','首都医科大学','清华大学'],
+        left: 10
+    },
+    dataZoom:[{
+ 　　　　type:"inside"         //详细配置可见echarts官网
+ 　　　}],
+    brush: {
+        toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
+        xAxisIndex: 0
+    },
+    toolbox: {
+        feature: {
+            magicType: {
+                type: ['stack', 'tiled']
+            },
+            dataView: {}
+        }
+    },
+    tooltip: {},
+    xAxis: {
+        data: xAxisData,
+        name: 'X Axis',
+        axisLine: {onZero: true},
+        splitLine: {show: false},
+        splitArea: {show: false}
+    },
+    yAxis: {
+        splitArea: {show: false}
+    },
+    grid: {
+        left: 100
+    },
+    series: [
+        {
+            name: '中国传媒大学',
+            type: 'bar',
+            stack: 'one',
+            emphasis: emphasisStyle,
+            data: data1
+        },
+        {
+            name: '中国人民大学',
+            type: 'bar',
+            stack: 'one',
+            emphasis: emphasisStyle,
+            data: data2
+        },
+        {
+            name: '北京外国语大学',
+            type: 'bar',
+            stack: 'two',
+            emphasis: emphasisStyle,
+            data: data3
+        },
+        {
+            name: '首都医科大学',
+            type: 'bar',
+            stack: 'two',
+            emphasis: emphasisStyle,
+            data: data4
+        },
+        {
+            name: '清华大学',
+            type: 'bar',
+            stack: 'one',
+            emphasis: emphasisStyle,
+            data: data5
+        }
+    ]
+};
+
+myChart.on('brushSelected', renderBrushed);
+
+function renderBrushed(params) {
+    var brushed = [];
+    var brushComponent = params.batch[0];
+
+    for (var sIdx = 0; sIdx < brushComponent.selected.length; sIdx++) {
+        var rawIndices = brushComponent.selected[sIdx].dataIndex;
+        brushed.push('[Series ' + sIdx + '] ' + rawIndices.join(', '));
+    }
+};
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+
+option = {
+
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'line',
+            lineStyle: {
+                color: 'rgba(0,0,0,0.2)',
+                width: 1,
+                type: 'solid'
+            }
+        }
+    },
+
+    legend: {
+        // data: ['清华大学', '中国传媒大学', '中国人民大学', '首都医科大学', '北京外国语大学']
+    },
+
+    singleAxis: {
+        top: 50,
+        bottom: 50,
+        axisTick: {},
+        axisLabel: {},
+        axisPointer: {
+            animation: true,
+            label: {
+                show: true
+            }
+        },
+        splitLine: {
+            show: true,
+            lineStyle: {
+                type: 'dashed',
+                opacity: 0.2
+            }
+        }
+    },
+
+    series: [
+        {
+            type: 'themeRiver',
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 20,
+                    shadowColor: 'rgba(0, 0, 0, 0.8)'
+                }
+            },
+            data:[[0, 1, '中国人民大学'], [0, 5, '中国传媒大学'], [0, 1, '清华大学'], [7, 6, '清华大学'], [8, 2, '中国传媒大学'], [8, 1, '北京外国语大学'], [8, 14, '清华大学'], [9, 2, '中国人民大学'], [9, 2, '中国传媒大学'], [9, 9, '清华大学'], [10, 4, '中国人民大学'], [10, 13, '中国传媒大学'], [10, 3, '北京外国语大学'], [10, 15, '清华大学'], [10, 3, '首都医科大学'], [11, 4, '中国人民大学'], [11, 3, '中国传媒大学'], [11, 3, '北京外国语大学'], [11, 8, '清华大学'], [11, 5, '首都医科大学'], [12, 4, '中国人民大学'], [12, 8, '中国传媒大学'], [12, 16, '清华大学'], [12, 3, '首都医科大学'], [13, 6, '中国人民大学'], [13, 7, '中国传媒大学'], [13, 13, '清华大学'], [13, 3, '首都医科大学'], [14, 2, '中国人民大学'], [14, 3, '中国传媒大学'], [14, 2, '北京外国语大学'], [14, 26, '清华大学'], [14, 6, '首都医科大学'], [15, 14, '中国人民大学'], [15, 9, '中国传媒大学'], [15, 1, '北京外国语大学'], [15, 15, '清华大学'], [15, 3, '首都医科大学'], [16, 8, '中国人民大学'], [16, 6, '中国传媒大学'], [16, 1, '北京外国语大学'], [16, 11, '清华大学'], [16, 4, '首都医科大学'], [17, 10, '中国人民大学'], [17, 5, '中国传媒大学'], [17, 1, '北京外国语大学'], [17, 14, '清华大学'], [17, 1, '首都医科大学'], [18, 5, '中国人民大学'], [18, 3, '中国传媒大学'], [18, 3, '北京外国语大学'], [18, 15, '清华大学'], [18, 6, '首都医科大学'], [19, 13, '中国人民大学'], [19, 6, '中国传媒大学'], [19, 2, '北京外国语大学'], [19, 18, '清华大学'], [20, 5, '中国人民大学'], [20, 14, '中国传媒大学'], [20, 2, '北京外国语大学'], [20, 18, '清华大学'], [20, 6, '首都医科大学'], [21, 8, '中国人民大学'], [21, 5, '中国传媒大学'], [21, 1, '北京外国语大学'], [21, 12, '清华大学'], [21, 1, '首都医科大学'], [22, 6, '中国人民大学'], [22, 8, '中国传媒大学'], [22, 1, '北京外国语大学'], [22, 14, '清华大学'], [22, 1, '首都医科大学'], [23, 4, '中国人民大学'], [23, 1, '北京外国语大学'], [23, 3, '清华大学'], [23, 1, '首都医科大学']]
+            
+            
+        }
+    ]
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    series: {
+        type: 'sankey',
+        layout: 'none',
+        focusNodeAdjacency: 'allEdges',
+        data: [{
+            name: '中国传媒大学'
+        }, {
+            name: '中国人民大学'
+        }, {
+            name: '北京外国语大学'
+        }, {
+            name: '首都医科大学'
+        }, {
+            name: '清华大学'
+        }],
+        links: [{
+            source: '北京外国语大学',
+            target: '清华大学',
+            value: 1
+        }, {
+            source: '北京外国语大学',
+            target: '中国传媒大学',
+            value: 6
+        }, {
+            source: '北京外国语大学',
+            target: '中国人民大学',
+            value: 6
+        }, {
+            source: '清华大学',
+            target: '首都医科大学',
+            value: 8
+        }, {
+            source: '清华大学',
+            target: '中国传媒大学',
+            value: 3
+        }, {
+            source: '清华大学',
+            target: '中国人民大学',
+            value: 4
+        }, {
+            source: '中国传媒大学',
+            target: '中国人民大学',
+            value: 4
+        }]
+    },
+    tooltip: {
+        formatter: '{b} : {c} '
+    }
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>

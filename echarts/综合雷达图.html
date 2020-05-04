@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: '基础雷达图'
+    },
+    tooltip: {},
+    legend: {
+        data: ['中国传媒大学','中国人民大学','北京外国语大学','首都医科大学','清华大学']
+    },
+    radar: {
+        // shape: 'circle',
+        name: {
+            textStyle: {
+                color: '#fff',
+                backgroundColor: '#999',
+                borderRadius: 3,
+                padding: [3, 5]
+            }
+        },
+        indicator: [
+            { name: '发文频率', max: 3.5},
+            { name: '品牌自信指数', max: 1},
+            { name: '平均传播指数', max: 550},
+            { name: '原创比例', max: 1},
+            { name: '整体加权情感指数', max: 1},
+            { name: '最大阅读量', max: 100001},
+            { name: '最高点赞数', max: 2300}
+        ]
+    },
+    series: [{
+        name: '五所学校公众号传播力综合评价',
+        type: 'radar',
+        // areaStyle: {normal: {}},
+        data: [
+            {
+                value:[0.32, 0.455, 266.89, 0.0455, 0.57, 100001, 2213],
+                name:'北京外国语大学'
+            },
+            {
+                value:[1.39, 0.531, 218.09, 0.125, 0.56, 72860, 710],
+                name:'中国人民大学'
+            },
+            {
+                value:[3.3, 0.68, 532.1, 0.4079, 0.77, 100001, 2198],
+                name:'清华大学'
+            },
+            {
+                value:[1.43, 0.768, 153.08, 0.4242, 0.61, 100001, 594],
+                name:'中国传媒大学'
+            },
+            {
+                value:[0.62, 0.419, 32.0, 0.0, 0.4, 8290, 123],
+                name:'首都医科大学'
+            }
+        ]
+    }]
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
